@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Một Bức Thư Dành Cho Bạn</title>
 
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    cursor: pointer;
+}
+
+.envelope {
+    width: 300px;
+    height: 200px;
+    background: #ff6b81;
+    position: relative;
+    border-radius: 10px;
+    transition: 0.8s;
+}
+
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 100px solid #ff4757;
+    transition: 0.8s;
+    transform-origin: bottom;
+}
+
+.envelope.open::before {
+    transform: rotateX(180deg);
+}
+
+.letter {
+    position: absolute;
+    width: 260px;
+    height: 160px;
+    background: white;
+    top: 20px;
+    left: 20px;
+    border-radius: 5px;
+    padding: 15px;
+    box-sizing: border-box;
+    transform: translateY(0);
+    transition: 0.8s;
+    overflow-y: auto;
+    opacity: 0;
+}
+
+.envelope.open .letter {
+    transform: translateY(-180px);
+    opacity: 1;
+}
+
+h2 {
+    margin-top: 0;
+    color: #ff6b81;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" onclick="openLetter()">
+    <div class="envelope" id="envelope">
+        <div class="letter">
+            <h2>Gửi bạn 💌</h2>
+            <p id="text"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+const message = `
+Thân gửi Hạ Linh,
+Gần đây có lẽ 2 đã trải qua
+nhiều cú sốc tinh thần rồi.
+
+Em thấy 2 đã cố gắng rồi
+Dù tụi em không giúp được nhiều
+nhưng mà 2 có chuyện buồn
+thì cứ kể tụi em
+
+Em thấy có người để chia sẻ
+với nói ra thì sẽ nhẹ nhàng hơn
+Dù tụi em hay bully 2 zị thui
+chứ tụi em thương 2 lắm á
+
+Chúc 2 và chị bé luôn vui vẻ
+và hạnh phúc, mọi việc 
+thuận buồm xuôi gió,
+tại qua nạn khỏi, vạn sự bình an
+`;
+
+let i = 0;
+
+function openLetter() {
+    const envelope = document.getElementById("envelope");
+    envelope.classList.add("open");
+
+    typeWriter();
+}
+
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+
+</script>
+
+</body>
+</html>
