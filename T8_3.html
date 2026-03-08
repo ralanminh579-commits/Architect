@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quà tặng Rii</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+/* BACKGROUND */
+
+body{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+
+background-image:url("wendy.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
+}
+
+/* OVERLAY */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.45);
+backdrop-filter:blur(4px);
+z-index:-1;
+}
+
+/* TIM BAY */
+
+.heart{
+
+position:fixed;
+bottom:-20px;
+font-size:20px;
+color:#ff4d88;
+animation:floatUp linear forwards;
+pointer-events:none;
+
+}
+
+@keyframes floatUp{
+
+to{
+transform:translateY(-110vh);
+opacity:0;
+}
+
+}
+
+/* SPARKLE */
+
+.sparkle{
+
+position:fixed;
+color:white;
+font-size:12px;
+animation:sparkle 2s linear forwards;
+
+}
+
+@keyframes sparkle{
+
+to{
+transform:translateY(-50px);
+opacity:0;
+}
+
+}
+
+/* PHONG BÌ */
+
+.container{
+
+cursor:pointer;
+transition:1s;
+
+}
+
+.envelope{
+
+width:320px;
+height:210px;
+background:#ff6b9c;
+border-radius:12px;
+position:relative;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+}
+
+.envelope:before{
+
+content:"";
+position:absolute;
+top:-105px;
+left:0;
+
+border-left:160px solid transparent;
+border-right:160px solid transparent;
+border-bottom:105px solid #ff4f8a;
+
+transform-origin:bottom;
+transition:0.8s;
+
+}
+
+.envelope.open:before{
+
+transform:rotateX(180deg);
+
+}
+
+/* LÁ THƯ */
+
+.letter{
+
+position:absolute;
+width:280px;
+padding:25px;
+
+background:rgba(255,255,255,0.9);
+backdrop-filter:blur(8px);
+
+border-radius:10px;
+
+top:20px;
+left:20px;
+
+opacity:0;
+transform:translateY(0);
+transition:1s;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+
+}
+
+.envelope.open .letter{
+
+opacity:1;
+transform:translateY(-260px);
+
+}
+
+/* THƯ LỚN */
+
+.fullLetter{
+
+position:fixed;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%) scale(0.8);
+
+width:90%;
+max-width:500px;
+
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(10px);
+
+padding:40px;
+border-radius:16px;
+
+box-shadow:0 20px 60px rgba(0,0,0,0.3);
+
+opacity:0;
+
+transition:1s;
+
+}
+
+.fullLetter.show{
+
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
+
+}
+
+h2{
+
+text-align:center;
+color:#ff4f8a;
+margin-bottom:15px;
+
+}
+
+.message{
+
+white-space:pre-line;
+line-height:1.7;
+color:#444;
+font-size:16px;
+
+}
+
+.signature{
+
+margin-top:15px;
+text-align:right;
+color:#ff4f8a;
+font-weight:bold;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container" onclick="openLetter()">
+
+<div class="envelope" id="envelope">
+
+<div class="letter">
+<h2>Món quà gửi muộn 🌸</h2>
+</div>
+
+</div>
+
+</div>
+
+<div class="fullLetter" id="fullLetter">
+
+<h2>Lời tri ân tới Rii 🌸</h2>
+
+<div class="message" id="text"></div>
+
+<div class="signature">
+From: Someone who appreciates you 💐
+</div>
+
+</div>
+
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c1c5c8c2a.mp3?filename=piano-moment-9835.mp3"></audio>
+
+<script>
+
+/* TIM BAY */
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=(3+Math.random()*3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+setInterval(createHeart,300);
+
+
+/* SPARKLE */
+
+function createSparkle(){
+
+const sparkle=document.createElement("div");
+
+sparkle.className="sparkle";
+sparkle.innerHTML="✨";
+
+sparkle.style.left=Math.random()*100+"vw";
+sparkle.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(sparkle);
+
+setTimeout(()=>{
+sparkle.remove();
+},2000);
+
+}
+
+setInterval(createSparkle,500);
+
+
+/* MESSAGE */
+
+const message = ` Lời đầu tiên tớ xin phép xin lỗi Rii trước vì đã hoàn thiện món quà này hơi muộn so với dự kiến ban đầu.
+
+Ngày hôm nay chắc cũng là một ngày dài đầy thăng trầm cảm xúc đối với Rii rồi nhỉ. T hi vọng món quà nhỏ này sẽ giúp m cảm thấy vui vẻ hơn nhen:>>
+T biết Rii rất quan tâm đến mọi người trong nhóm, cũng là môt người giàu tình cảm. Mỗi ngày dù rất bận rộn với việc học và việc làm thêm nhưng lúc nào Rii cùng luôn cố gằng dành thời gian vào discord để trò chuyện cùng mọi người. Lần nào Rii cũng đều cố gắng rep mọi tin nhắn của mọi người, dù có những lúc mọi người nhắn rất nhiều và tin nhắn bị trôi và loãng. T thấy Rii rất tài á, t không nghĩ t có thể làm được thế đâu.
+Còn nữa, t thấy rất nể vì Rii có thể thẳng thắn nói ra suy nghĩ của mình. Dám nói, dám làm, dám chịu trách nhiệm, t thấy Rii rất đáng nể phục. Cá nhân t thì t không nghĩ mình làm được, mà t sẽ giữ im trong lòng thui không dám nói ra.
+
+Vậy nên, cảm ơn Rii vì đã luôn lắng nghe t nhá:>> Cảm giác có người bạn thân qua mạng cũng không tệ (thật ra là biết ơn lắm á). Nhiều khi có những thứ t không dám kể với người quen nhưng mà Rii thì vẫn luôn lắng nghe t (và chửi t nữa=)))
+Nói chung là t quý Rii lắm, cảm ơn vì đã tặng tớ khung avatar discord dễ thương kia nhá:333 Chúc Rii ngày hôm nay và những ngày sau sẽ luôn vui vẻ, hạnh phúc và bình an.
+Hehe thương Rii lắm ý:333 Chúc mừng bù ngày Quốc tế Phụ nữ 8/3 nha 💐
+`;
+
+let i=0;
+let opened=false;
+
+function openLetter(){
+
+if(opened) return;
+
+opened=true;
+
+document.getElementById("envelope").classList.add("open");
+
+document.getElementById("music").play();
+
+setTimeout(()=>{
+
+document.getElementById("fullLetter").classList.add("show");
+
+typeWriter();
+
+},1500);
+
+}
+
+function typeWriter(){
+
+if(i<message.length){
+
+document.getElementById("text").innerHTML+=message.charAt(i);
+
+i++;
+
+setTimeout(typeWriter,35);
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
